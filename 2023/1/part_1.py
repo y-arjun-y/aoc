@@ -1,4 +1,4 @@
-with open("part_1_2_input.txt", "r") as fobj:
+with open("2023/1/part_1_2_input.txt", "r") as fobj:
     lines = fobj.readlines()
     sum = 0
 
