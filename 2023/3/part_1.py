@@ -122,5 +122,4 @@ with open("2023/3/part_1_input.txt", "r") as fobj:
             num = int("".join([j for j in part_nums[i] if j.isnumeric()]))
             part_nums[i] = num
 
-    print(sorted(part_nums))
     print(sum(part_nums))
