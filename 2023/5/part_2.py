@@ -8,11 +8,18 @@ def get(dict, list1, list2):
             dict[i] = i
 
 
-with open("2023/5/part_1_2_input.txt", "r") as fobj:
+with open("2023/5/part_1_test_input.txt", "r") as fobj:
     lines = fobj.read()
     lines = lines.split("\n")
 
-    seeds = [int(i) for i in lines[0][6:].split()]
+    seeds = [
+        (
+            int(lines[0][6:].split()[i]),
+            int(lines[0][6:].split()[i]) + int(lines[0][6:].split()[i + 1]),
+        )
+        for i in range(len(lines[0][6:].split()) - 1)
+    ]
+    print(seeds)
 
     seed_to_soil_lines = [
         [int(j) for j in i.split()]
