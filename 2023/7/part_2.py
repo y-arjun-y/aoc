@@ -1,3 +1,5 @@
+# TBD
+
 from functools import cmp_to_key
 
 conversion = {
@@ -14,6 +16,7 @@ conversion = {
     "4": 4,
     "3": 3,
     "2": 2,
+    "J": 1,
 }
 
 
