@@ -1,5 +1,3 @@
-# TBD
-
 from functools import cmp_to_key
 
 conversion = {
@@ -21,22 +19,46 @@ conversion = {
 
 
 def get_type(card):
-    if len(dict.fromkeys(card)) == 1:
-        return 6  # "Five of a Kind"
-    elif len(dict.fromkeys(card)) == 2:
-        if 4 in {i: card.count(i) for i in dict.fromkeys(card)}.values():
-            return 5  # "Four of a Kind"
-        else:
-            return 4  # "Full house"
-    elif len(dict.fromkeys(card)) == 3:
-        if 3 in {i: card.count(i) for i in dict.fromkeys(card)}.values():
-            return 3  # "Three of a Kind"
-        else:
-            return 2  # "Two pair"
-    elif len(dict.fromkeys(card)) == 4:
-        return 1  # "One pair"
-    elif len(dict.fromkeys(card)) == len(card):
-        return 0  # "High card"
+    if "J" not in card:
+        if len(dict.fromkeys(card)) == 1:
+            return 6  # "Five of a Kind"
+        elif len(dict.fromkeys(card)) == 2:
+            if 4 in {i: card.count(i) for i in dict.fromkeys(card)}.values():
+                return 5  # "Four of a Kind"
+            else:
+                return 4  # "Full house"
+        elif len(dict.fromkeys(card)) == 3:
+            if 3 in {i: card.count(i) for i in dict.fromkeys(card)}.values():
+                return 3  # "Three of a Kind"
+            else:
+                return 2  # "Two pair"
+        elif len(dict.fromkeys(card)) == 4:
+            return 1  # "One pair"
+        elif len(dict.fromkeys(card)) == len(card):
+            return 0  # "High card"
+    else:
+        if (
+            len(dict.fromkeys(card)) == 1 or len(dict.fromkeys(card)) == 2
+        ):  # JJJJJ, TJJJJ
+            return 6  # "Five of a Kind"
+        elif len(dict.fromkeys(card)) == 3:  # JTJ8T, J8T8T
+            # print(card)
+            card = "".join([i for i in card if i != "J"])
+            count = {i: card.count(i) for i in dict.fromkeys(card)}
+            # print(card, count)
+            if 1 not in count.values():
+                return 4  # Full house
+            else:
+                return 5  # Four of a Kind
+        elif len(dict.fromkeys(card)) == 4:  # TKJAJ
+            card = "".join([i for i in card if i != "J"])
+            count = {i: card.count(i) for i in dict.fromkeys(card)}
+            if 1 not in count.values():
+                return 2  # Two pair
+            else:
+                return 3  # Three of a Kind
+        elif len(dict.fromkeys(card)) == 5:  # TKBAJ
+            return 1  # "One pair"
 
 
 def stronger(card1, card2):
