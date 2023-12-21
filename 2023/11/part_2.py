@@ -1,8 +1,9 @@
-# TBD
+# incorrect + too slow
 
-with open("2023/11/part_1_2_input.txt") as fobj:
+with open("2023/11/part_1_2_test_input.txt") as fobj:
     fwobj = open("2023/11/test.txt", "w")
     lines = fobj.readlines()
+    scale = int(1)
 
     # Expansion
 
@@ -18,10 +19,12 @@ with open("2023/11/part_1_2_input.txt") as fobj:
         if no_galaxy_rows:
             if lines[i][-1] == "\n":
                 new_lines.append(lines[i])
-                new_lines.append("." * (len(lines[i]) - 1) + "\n")
+                for j in range(scale):
+                    new_lines.append("." * (len(lines[i]) - 1) + "\n")
             else:
                 new_lines.append(lines[i] + "\n")
-                new_lines.append("." * len(lines[i]))
+                for j in range(scale):
+                    new_lines.append("." * len(lines[i]))
         else:
             new_lines.append(lines[i])
 
@@ -43,13 +46,10 @@ with open("2023/11/part_1_2_input.txt") as fobj:
     for j in range(len(lines[0]) - 1):
         if j not in galaxy_cols:
             for i in range(len(lines)):
-                print(j, "column")
-                print(lines[i], offset)
-                print(lines[i][: j + offset] + "." + lines[i][j + offset :])
-                lines[i] = lines[i][: j + offset] + "." + lines[i][j + offset :]
+                lines[i] = lines[i][: j + offset] + "." * scale + lines[i][j + offset :]
                 
 
-            offset += 1
+            offset += scale
     
     # Distance
             
@@ -63,6 +63,7 @@ with open("2023/11/part_1_2_input.txt") as fobj:
     
     for i in points:
         for j in points:
+            # print(i, j, abs(j[0] - i[0]) + abs(j[1] - i[1]))
             total += abs(j[0] - i[0]) + abs(j[1] - i[1])
 
     print(total // 2)
